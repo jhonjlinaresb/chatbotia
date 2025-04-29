@@ -92,19 +92,21 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 - Se mejoró la estructura de los datos extraídos para incluir títulos, párrafos y enlaces.
 - Se está trabajando en la integración con la API de WhatsApp para enviar las respuestas del chatbot a los usuarios.
 
-## Pruebas con Puppeteer y mejoras del scraping
+## Mejoras del scraping y pruebas con Puppeteer
 
-Actualmente, el scraping con **Axios** y **Cheerio** está funcionando, pero no captura completamente el contenido dinámico de la página. **Puppeteer** será utilizado en el futuro para mejorar la precisión del scraping, ya que puede interactuar mejor con páginas web que cargan contenido de forma asíncrona.
+Por ahora, el scraping con **Axios** y **Cheerio** está funcionando, pero hay ciertos casos donde no captura correctamente el contenido dinámico de la página. **Puppeteer** va a ser la solución en el futuro, ya que es más eficiente para lidiar con contenido que se carga de manera asíncrona (como las cosas que se cargan después de que la página ya ha cargado).
 
-### Pasos para probar el scraping con Puppeteer:
+En cuanto esté implementado **Puppeteer**, quiero probarlo para ver si mejora la extracción de datos, especialmente con el contenido que no se carga de inmediato. Aquí van algunas notas para tener en cuenta cuando lo haga:
 
-1. Asegúrate de tener Puppeteer instalado en el proyecto:
+### Pasos para probar el scraping con Puppeteer
+
+- **Instalar Puppeteer**: Asegúrate de tener Puppeteer en el proyecto.
 
     ```bash
     npm install puppeteer
     ```
 
-2. Cambia el script de scraping para usar Puppeteer en lugar de Axios y Cheerio, de manera similar a esto:
+- **Actualizar el script** para usar Puppeteer en lugar de Axios y Cheerio, de esta forma:
 
     ```typescript
     import puppeteer from 'puppeteer';
@@ -114,15 +116,16 @@ Actualmente, el scraping con **Axios** y **Cheerio** está funcionando, pero no 
       const page = await browser.newPage();
       await page.goto('https://www.camaracastellon.com/es/');
       const content = await page.content();
-      // Aquí puedes usar Cheerio u otro método para extraer los datos
-      console.log(content); // Solo un ejemplo de cómo ver el contenido.
+      console.log(content); // Ver cómo se obtiene todo el HTML
       await browser.close();
     }
 
     scrapeWithPuppeteer();
     ```
 
-3. Ejecuta el scraper con Puppeteer para asegurarte de que los datos se extraen correctamente.
+- **Ejecutar y probar** el scraper: El objetivo es ver si la extracción mejora con Puppeteer y si conseguimos capturar más contenido dinámico que antes.
+
+---
 
 ### Próximos Pasos
 
