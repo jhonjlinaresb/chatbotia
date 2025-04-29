@@ -1,2 +1,5 @@
 #Node Modules
 node_modules
+
+#Fichero de Salida de archivos de scrapeo
+output/
