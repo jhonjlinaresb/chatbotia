@@ -141,6 +141,7 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 #### Proyecto en Progreso
 
+* **Refactorización del manejo de errores en el scraper**: Se ha mejorado la estructura del código para manejar errores en las solicitudes HTTP de manera más clara y eficiente. Ahora se utiliza un método auxiliar ConsoleError que facilita la gestión de errores de manera centralizada.
 * **Scraping optimizado**: El scraper se ha refactorizado utilizando Puppeteer para una mayor flexibilidad al manejar contenido dinámico, mejorando la precisión y la eficiencia del scraping.
 * Se han mejorado los scripts para extraer información relevante como títulos, enlaces y descripciones.
 * Se está desarrollando la integración con la API de WhatsApp para permitir que el chatbot interactúe con los usuarios.
