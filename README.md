@@ -94,7 +94,7 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 ---
 
-### 🗌 Flujo del Scraper
+### => Flujo del Scraper
 
 ```text
            +---------------------------+
@@ -141,6 +141,9 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 #### Proyecto en Progreso
 
+* **Gestión de URLs**: El scraper ahora guarda automáticamente las URLs descubiertas en el archivo urls.txt, que se actualiza y evita duplicados con cada ejecución.
+
+* **Soporte para variables de entorno**: Se añadió la capacidad de configurar la ubicación del archivo urls.txt mediante la variable de entorno URLS_FILE_PATH.
 * **Refactorización del manejo de errores en el scraper**: Se ha mejorado la estructura del código para manejar errores en las solicitudes HTTP de manera más clara y eficiente. Ahora se utiliza un método auxiliar ConsoleError que facilita la gestión de errores de manera centralizada.
 * **Scraping optimizado**: El scraper se ha refactorizado utilizando Puppeteer para una mayor flexibilidad al manejar contenido dinámico, mejorando la precisión y la eficiencia del scraping.
 * Se han mejorado los scripts para extraer información relevante como títulos, enlaces y descripciones.

@@ -50,8 +50,9 @@ export async function crawlSite(startUrl: string, maxDepth = 3) {
   await crawl(startUrl, 0);
   await browser.close();
 
-  // Guardar las URLs descubiertas en el archivo "urls.txt"
-  const filePath = path.resolve('./urls.txt');
+  // Guardar las URLs descubiertas en el archivo configurado por la variable de entorno URLS_FILE_PATH o en 'urls.txt' por defecto
+  const URLS_FILE_PATH = process.env.URLS_FILE_PATH || './urls.txt';
+  const filePath = path.resolve(URLS_FILE_PATH);
   const existingUrls = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf-8').split('\n').map(line => line.trim()) : [];
   const newUrls = [...new Set([...existingUrls, ...discovered])];
 

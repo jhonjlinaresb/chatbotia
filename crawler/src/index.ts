@@ -7,8 +7,11 @@ import { scrapeWithPuppeteer } from './scrapeWithPuppeteer';
 dotenv.config();
 
 const START_URL = process.env.START_URL;
-const URLS_FILE_PATH = path.resolve('./urls.txt');
-const OUTPUT_DIR = path.resolve('./output');
+const URLS_FILE_PATH = path.resolve(process.env.URLS_FILE_PATH || './urls.txt');
+const OUTPUT_DIR = path.resolve(process.env.OUTPUT_DIR || './output');
+
+console.log(`Path de las URLs: ${URLS_FILE_PATH}`);
+console.log(`Directorio de salida: ${OUTPUT_DIR}`);
 
 if (!START_URL)
 {
@@ -112,5 +115,5 @@ async function discoverUrls(baseUrl: string): Promise<string[]>
   console.log('✅ Proceso de scraping finalizado.');
   console.log(`📂 Datos guardados en ${OUTPUT_DIR}/pages`);
   console.log(`📄 URLs guardadas en ${URLS_FILE_PATH}`);
-  
+
 })();
