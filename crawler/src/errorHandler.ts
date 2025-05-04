@@ -1,42 +1,38 @@
 import axios from 'axios';
 
-export function handleAxiosError(error: unknown): void
-{
-    if (!axios.isAxiosError(error))
-    {
+/**
+ * @summary Maneja y muestra mensajes personalizados para errores de solicitudes HTTP hechas con Axios.
+ * @param error Objeto de error capturado en un catch
+ */
+export function handleAxiosError(error: unknown): void {
+  if (!axios.isAxiosError(error)) {
     console.error('❌ Error inesperado:', error);
     return;
-    }
+  }
 
-    if (error.response) 
-    {
-        switch (error.response.status)
-        {
-        case 400:
-            console.error('❌ 400: Solicitud incorrecta');
-            break;
-        case 401:
-            console.error('❌ 401: No autorizado');
-            break;
-        case 403:
-            console.error('❌ 403: Prohibido');
-            break;
-        case 404:
-            console.error('❌ 404: Página no encontrada');
-            break;
-        case 500:
-            console.error('❌ 500: Error interno del servidor');
-            break;
-        default:
-            console.error(`❌ ${error.response.status}: Error desconocido del servidor`);
-        }
+  if (error.response) {
+    switch (error.response.status) {
+      case 400:
+        console.error('❌ 400: Solicitud incorrecta');
+        break;
+      case 401:
+        console.error('❌ 401: No autorizado');
+        break;
+      case 403:
+        console.error('❌ 403: Prohibido');
+        break;
+      case 404:
+        console.error('❌ 404: Página no encontrada');
+        break;
+      case 500:
+        console.error('❌ 500: Error interno del servidor');
+        break;
+      default:
+        console.error(`❌ ${error.response.status}: Error desconocido del servidor`);
     }
-    else if (error.request)
-    {
+  } else if (error.request) {
     console.error('❌ No hubo respuesta del servidor (request enviado)');
-    }
-    else
-    {
+  } else {
     console.error(`❌ Error de configuración en la solicitud: ${error.message}`);
-    }
+  }
 }

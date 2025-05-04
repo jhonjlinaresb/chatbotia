@@ -1,56 +1,63 @@
+import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
-import axios from 'axios';
-import { parseHtml } from './parser';
-import { handleAxiosError } from './errorHandler';
 
-async function fetchPage(url: string)
-{
-  try
-  {
-    console.log('🔄 Iniciando el proceso de scraping...');
+// Conjunto para evitar procesar URLs duplicadas
+const visited = new Set<string>();
+const discovered: string[] = [];
 
-    if (!isValidUrl(url))
-    {
-      throw new Error(`❌ URL inválida: ${url}`);
+/**
+ * @summary Inicia el proceso de crawling desde una URL base.
+ * @param startUrl - La URL desde donde comenzar el rastreo.
+ * @param maxDepth - Máxima profundidad de rastreo (niveles de enlaces).
+ * @returns Lista de URLs descubiertas dentro del dominio.
+ */
+export async function crawlSite(startUrl: string, maxDepth = 3) {
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+
+  const baseDomain = new URL(startUrl).hostname;
+
+  /**
+   * @summary Visita una URL, extrae enlaces internos y los recorre recursivamente.
+   * @param url - URL actual a rastrear.
+   * @param depth - Profundidad actual del rastreo.
+   */
+  async function crawl(url: string, depth: number) {
+    if (visited.has(url) || depth > maxDepth) return;
+    visited.add(url);
+    discovered.push(url);
+
+    try {
+      await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+
+      const links = await page.$$eval('a', anchors =>
+        anchors
+          .map(a => a.href)
+          .filter(href => href && !href.startsWith('mailto:') && !href.startsWith('#'))
+      );
+
+      const internalLinks = links.filter(link => new URL(link).hostname === baseDomain);
+
+      for (const link of internalLinks) {
+        await crawl(link, depth + 1);
+      }
+    } catch (err) {
+      console.warn(`❌ Error en ${url}:`, err);
     }
-
-    const response = await axios.get(url);
-    if (response.status !== 200)
-    {
-      console.warn(`⚠️ Código de estado inesperado: ${response.status}`);
-      return;
-    }
-
-    const data = { source: url, extractedOn: new Date().toISOString(), sections: parseHtml(response.data) };
-
-    const outputDir = './output';
-    if (!fs.existsSync(outputDir))
-    {
-      fs.mkdirSync(outputDir);
-    }
-
-    const timestamp = new Date().toISOString().replace(/:/g, '-');
-    const filename = path.join(outputDir, `page_data_${timestamp}.json`);
-
-    fs.writeFileSync(filename, JSON.stringify(data, null, 2), 'utf-8');
-    console.log(`✅ Datos guardados en: ${filename}`);
   }
-  catch (error: unknown)
-  {
-    handleAxiosError(error);
-  }
-  finally
-  {
-    console.log('🔚 Proceso de scraping finalizado.\n');
-  }
+
+  await crawl(startUrl, 0);
+  await browser.close();
+
+  // Guardar las URLs descubiertas en el archivo "urls.txt"
+  const filePath = path.resolve('./urls.txt');
+  const existingUrls = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf-8').split('\n').map(line => line.trim()) : [];
+  const newUrls = [...new Set([...existingUrls, ...discovered])];
+
+  // Escribir las URLs descubiertas y las existentes en el archivo
+  fs.writeFileSync(filePath, newUrls.join('\n'), 'utf-8');
+  console.log(`🔗 URLs descubiertas guardadas en: ${filePath}`);
+
+  return newUrls;
 }
-
-function isValidUrl(url: string): boolean
-{
-  const regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-  return regex.test(url);
-}
-
-const targetUrl = process.env.TARGET_URL || 'https://www.camaracastellon.com/es/';
-fetchPage(targetUrl);
