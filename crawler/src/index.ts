@@ -99,10 +99,7 @@ async function discoverUrls(baseUrl: string): Promise<string[]>
         fs.mkdirSync(pageOutputDir, { recursive: true });
       }
 
-      const fileName = path.join(
-        pageOutputDir,
-        `page_data_${new URL(url).pathname.replace(/[^a-zA-Z0-9]/g, '_') || 'root'}.json`
-      );
+      const fileName = path.join(pageOutputDir, `page_data_${new URL(url).pathname.replace(/[^a-zA-Z0-9]/g, '_') || 'root'}.json`);
 
       fs.writeFileSync(fileName, JSON.stringify({ url, data }, null, 2));
     }
