@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /**
- * @summary Maneja errores HTTP y muestra mensajes personalizados.
+ * @summary Maneja y muestra mensajes personalizados para errores de solicitudes HTTP hechas con Axios.
  * @param error Objeto de error capturado en un catch
  */
 export function HandleAxiosError(error: unknown): void 
