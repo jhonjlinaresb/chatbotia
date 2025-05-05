@@ -5,6 +5,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import pagesRoutes from "./routes/pages";
+import chatRoutes from "./routes/chat";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/api/pages", pagesRoutes);
+app.use("/api/chat", chatRoutes);
 
 /// <summary>
 /// Inicia el servidor en el puerto especificado.

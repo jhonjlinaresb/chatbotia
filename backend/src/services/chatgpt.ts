@@ -21,7 +21,7 @@ export async function askChatGPT(message: string): Promise<string>
     ({
         model: "gpt-3.5-turbo",
         messages: [
-            { role: "system", content: "Eres un chatbot útil y preciso." },
+            { role: "system", content: "Eres un chatbot útil y preciso para responder preguntas relacionadas con la Cámara de Comercio de Castellón https://www.camaracastellon.com/es/" },
             { role: "user", content: message }
         ]
     });

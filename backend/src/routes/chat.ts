@@ -1,5 +1,5 @@
 /// <summary>
-/// Ruta API para manejar mensajes del chatbot.
+/// Rutas para el chatbot con la API de OpenAI.
 /// </summary>
 
 import express, { Request, Response } from "express";
@@ -8,28 +8,25 @@ import { askChatGPT } from "../services/chatgpt";
 const router = express.Router();
 
 /// <summary>
-/// GET /api/chat
-/// Envía una pregunta y devuelve la respuesta del modelo GPT.
+/// GET /api/chat?msg=Hola
+/// Devuelve la respuesta del modelo de ChatGPT.
 /// </summary>
-router.get("/", async (req: Request, res: Response) =>
-{
-    const userMessage: string = req.query.msg as string;
-
-    if (!userMessage)
+router.get("/", (req: Request, res: Response) =>
     {
-        return res.status(400).json({ error: "No se proporcionó el mensaje." });
-    }
-
-    try
-    {
-        const reply: string = await askChatGPT(userMessage);
-        return res.json({ response: reply });
-    }
-    catch (error)
-    {
-        console.error("Error al comunicarse con OpenAI:", error);
-        return res.status(500).json({ error: "Error interno del servidor." });
-    }
-});
-
+        const msg = req.query.msg as string;
+    
+        if (!msg)
+        {
+            return res.status(400).json({ error: "Falta el parámetro 'msg'." });
+        }
+    
+        askChatGPT(msg)
+            .then(reply => res.json({ response: reply }))
+            .catch(error =>
+            {
+                console.error("Error en la API de OpenAI:", error);
+                return res.status(500).json({ error: "Error del servidor." });
+            });
+    });
+    
 export default router;
