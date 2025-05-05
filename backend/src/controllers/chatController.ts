@@ -1,46 +1,45 @@
 /// <summary>
-/// Controlador para manejar las solicitudes del chatbot.
+/// Controlador para gestionar las solicitudes del chatbot.
+/// Utiliza OpenAI para responder preguntas, basándose en el contexto de la base de datos.
 /// </summary>
 
-import { Request, Response } from "express"; // Importa los tipos de Express
-import { obtenerRespuestaDeFAQ } from "../services/faqService";
+import { Request, Response } from "express";
 import { OpenAI } from "openai";
+import { obtenerContexto } from "../services/contextService"; 
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 /// <summary>
-/// Procesa la pregunta del usuario y devuelve una respuesta.
-/// Primero busca en la base de datos y, si no encuentra, consulta la API de OpenAI.
+/// Controlador para procesar la pregunta y generar una respuesta utilizando OpenAI.
 /// </summary>
-/// <param name="req">La solicitud HTTP.</param>
-/// <param name="res">La respuesta HTTP.</param>
-export async function preguntar(req: Request, res: Response): Promise<Response> 
+export async function preguntar(req: Request, res: Response): Promise<Response>
 {
-    console.log("Solicitud recibida:", req.body);
     const { pregunta } = req.body;
 
-    // Buscar en la base de datos
-    const respuestaBDD = await obtenerRespuestaDeFAQ(pregunta);
-
-    if (respuestaBDD) 
+    try
     {
-        return res.json({ respuesta: respuestaBDD });
-    } 
-    else 
-    {
-        try 
-        {
-            // Si no se encuentra en la base de datos, consultar OpenAI
-            const response = await openai.chat.completions.create({
-                model: "gpt-4",
-                messages: [{ role: "user", content: pregunta }],
-            });
+        /// <summary>
+        /// Obtiene el contexto de la base de datos.
+        /// </summary>
+        const contexto = await obtenerContexto();
 
-            return res.json({ respuesta: response.choices[0].message.content });
-        } 
-        catch (error) 
-        {
-            return res.status(500).json({ error: "Error al obtener respuesta" });
-        }
+        const prompt = `Responde a la siguiente pregunta utilizando esta información como contexto:\n\n${contexto}\n\nPregunta: ${pregunta}`;
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-4",
+            messages: [
+                { role: "system", content: "Eres un asistente útil y experto en información institucional." },
+                { role: "user", content: prompt }
+            ]
+        });
+
+        const respuesta = response.choices[0].message.content;
+        return res.json({ respuesta });
+
+    }
+    catch (error)
+    {
+        console.error("Error al procesar la pregunta:", error);
+        return res.status(500).json({ error: "Error al procesar la pregunta." });
     }
 }

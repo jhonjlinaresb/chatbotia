@@ -3,6 +3,7 @@
 /// </summary>
 
 import express, { Request, Response } from "express";
+import { preguntar } from "../controllers/chatController";
 import { askChatGPT } from "../services/chatgpt";
 
 const router = express.Router();
@@ -28,5 +29,7 @@ router.get("/", (req: Request, res: Response) =>
                 return res.status(500).json({ error: "Error del servidor." });
             });
     });
+
+router.post("/preguntar", preguntar);
     
 export default router;
