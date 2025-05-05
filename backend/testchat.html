@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Elegante</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f4f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .messages {
+      height: 400px;
+      overflow-y: auto;
+      border: 1px solid #e5e7eb;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: #fafafa;
+    }
+
+    .message {
+      margin-bottom: 1rem;
+    }
+
+    .user {
+      text-align: right;
+      color: #2563eb;
+    }
+
+    .bot {
+      text-align: left;
+      color: #111827;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 1rem;
+    }
+
+    input {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 0.75rem 1rem;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="messages" id="messages"></div>
+    <div class="input-area">
+      <input type="text" id="input" placeholder="Escribe tu pregunta..." />
+      <button onclick="preguntar()">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    async function preguntar() {
+      const input = document.getElementById("input");
+      const messages = document.getElementById("messages");
+      const pregunta = input.value.trim();
+
+      if (!pregunta) return;
+
+      // Agrega mensaje del usuario
+      messages.innerHTML += `<div class="message user"><strong>Tú:</strong> ${pregunta}</div>`;
+      input.value = "";
+      messages.scrollTop = messages.scrollHeight;
+
+      try {
+        const res = await fetch("http://localhost:3001/api/chat/preguntar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pregunta: String(pregunta) })
+        });
+
+        const data = await res.json();
+        messages.innerHTML += `<div class="message bot"><strong>ChatBot:</strong> ${data.respuesta}</div>`;
+      } catch (err) {
+        messages.innerHTML += `<div class="message bot"><strong>Error:</strong> No se pudo obtener respuesta</div>`;
+      }
+
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>

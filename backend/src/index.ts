@@ -4,6 +4,7 @@
 
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import pagesRoutes from "./routes/pages";
 import chatRoutes from "./routes/chat";
 
@@ -14,16 +15,24 @@ const PORT = process.env.PORT || 3001;
 /// <summary>
 /// Inicializa el servidor Express y configura las rutas.
 /// </summary>
-const app = express();
+const APP = express();
+APP.use(cors());
+//APP.use(express.urlencoded({ extended: true }));
 
-app.use(express.json());
-app.use("/api/pages", pagesRoutes);
-app.use("/api/chat", chatRoutes);
+APP.use(express.json());
+APP.use("/api/pages", pagesRoutes);
+APP.use("/api/chat", chatRoutes);
+// APP.post("/test", (req, res) => {
+//     res.json({ message: "Ruta de prueba funcionando" });
+// });
+// APP.post("/api/chat/preguntar", (req, res) => {
+//     res.send("Ruta de prueba funcionando");
+// });
 
 /// <summary>
 /// Inicia el servidor en el puerto especificado.
 /// </summary>
-app.listen(PORT, () =>
+APP.listen(PORT, () =>
 {
     console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
