@@ -75,15 +75,15 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 4. **Ejecutar el backend**:
 
-Una vez que el scraper haya terminado de ejecutar y los datos hayan sido guardados en la subcarpeta de `output`, puedes iniciar el servidor backend. Esto permitirá procesar esos datos y almacenarlos en la base de datos MongoDB.
+   Una vez que el scraper haya terminado de ejecutar y los datos hayan sido guardados en la subcarpeta de `output`, puedes iniciar el servidor backend. Esto permitirá procesar esos datos y almacenarlos en la base de datos MongoDB.
 
-Ejecutar el siguiente comando para iniciar el backend:
+   Ejecutar el siguiente comando para iniciar el backend:
 
    ```bash
    cd chatbotia/backend
    npm run dev
    ```
-Esto iniciará el servidor Express en http://localhost:3001, y aquí se podrá interactuar con la API para manejar los datos que han sido cargados desde el scraper y los guardará en la base de datos.
+   Esto iniciará el servidor Express en http://localhost:3001, y aquí se podrá interactuar con la API para manejar los datos que han sido cargados desde el scraper y los guardará en la base de datos.
 
 #### Frontend (React)
 
