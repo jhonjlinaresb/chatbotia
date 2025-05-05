@@ -202,7 +202,7 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 * **Automatización del scraper**: Automatizar el scraper para que se ejecute antes de levantar el backend y mantenga los datos actualizados en MongoDB.
 * **API RESTful**: Desarrollar endpoints para acceder a los datos extraídos y almacenados desde el scraper.
-* **Integración con la API de OpenAI**: Utilizar OpenAI para generar respuestas inteligentes basadas en el contenido web almacenado.
+* **IGenerar respuestas por ChatGPT**: Utilizar el api de OpenAI para generar respuestas inteligentes basadas en el contenido almacenado en la base de datos.
 * **Integración con la API de WhatsApp**: Conectar el backend con WhatsApp para responder automáticamente a los usuarios usando la base de datos y OpenAI.
 * **Pruebas unitarias**: Implementar pruebas para garantizar la estabilidad del flujo de carga de datos y acceso.
 * **Optimización de datos**: Mejorar el rendimiento al cargar grandes volúmenes de datos desde los archivos JSON generados.
