@@ -177,7 +177,7 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 * Se ha creado un nuevo módulo para la conexión con MongoDB y la carga de datos desde los archivos JSON generados por el scraper.
 * Se implementó una nueva funcionalidad en el backend para cargar automáticamente los datos extraídos por el scraper a la base de datos MongoDB.
 * Se añadió la lógica para conectar a MongoDB, leer los archivos de datos generados por el scraper y almacenarlos en la base de datos.
-* El backend ahora incluye un script de carga de datos (`loadData.ts`), que lee los archivos JSON generados en la carpeta `crawler/output`, los procesa y los inserta en la colección de MongoDB.
+* El backend ahora incluye un script de carga de datos (`loadData.ts`), que lee los archivos JSON generados en la carpeta `crawler/output/pages`, los procesa y los inserta en la colección de MongoDB.
 * Se ha mejorado la estructura del código, separando la lógica de conexión a la base de datos y la carga de los datos del scraper en módulos diferentes.
 * Se refactorizó la gestión de errores para proporcionar una mayor claridad en el manejo de fallos durante el proceso de conexión a la base de datos y carga de datos.
 * El backend está ahora preparado para recibir y servir los datos a través de una API RESTful, permitiendo a los usuarios acceder a la información cargada desde la base de datos.
@@ -196,11 +196,23 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 ### Próximos pasos
 
-* Crear base de datos para almacenar la información extraída.
-* Crear API para pasar la información de JSON a base de datos.
-* Integrar el backend con la API de OpenAI.
-* Crear pruebas unitarias para el scraping y la extracción de datos.
-* Integrar el backend con la API de WhatsApp para responder preguntas de los usuarios.
+#### Backend
+
+* **Automatización del scraper**: Automatizar el scraper para que se ejecute antes de levantar el backend y mantenga los datos actualizados en MongoDB.
+* **API RESTful**: Desarrollar endpoints para acceder a los datos extraídos y almacenados desde el scraper.
+* **Integración con la API de OpenAI**: Utilizar OpenAI para generar respuestas inteligentes basadas en el contenido web almacenado.
+* **Integración con la API de WhatsApp**: Conectar el backend con WhatsApp para responder automáticamente a los usuarios usando la base de datos y OpenAI.
+* **Pruebas unitarias**: Implementar pruebas para garantizar la estabilidad del flujo de carga de datos y acceso.
+* **Optimización de datos**: Mejorar el rendimiento al cargar grandes volúmenes de datos desde los archivos JSON generados.
+* **Seguridad y autenticación**: (Opcional) Agregar autenticación y protección de rutas en la API cuando sea necesario.
+* **Documentación técnica**: Documentar la API y los flujos de datos del backend.
+
+#### Frontend
+
+* **Interfaz de chat en vivo**: Crear una UI simple donde el usuario pueda interactuar directamente con el chatbot.
+* **Integración con backend y OpenAI**: Conectar el chat en tiempo real al backend para obtener respuestas basadas en la información extraída.
+* **Diseño responsivo**: Asegurar que el frontend sea usable en móviles y escritorio.
+* **Historial y recomendaciones (futuro)**: (Futuro) Permitir registro para guardar historial de conversación, recomendaciones o recibir alertas.
 
 ---
 
