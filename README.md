@@ -36,6 +36,8 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 * **dotenv**: Para gestionar configuraciones mediante variables de entorno.
 * **fs y path**: Para manipulación de archivos y rutas locales.
 * **TypeScript**: Lenguaje principal del proyecto.
+* **MongoDB**: Base de datos NoSQL para almacenar la información extraída.
+* **Express**: Framework para construir la API RESTful.
 
 #### Frontend (React):
 
@@ -51,7 +53,6 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
    ```bash
    git clone https://github.com/jhonjlinaresb/chatbotia.git
-   cd chatbotia/crawler
    ```
 
 2. **Instalar dependencias**:
@@ -62,13 +63,27 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 3. **Ejecutar el scraper**:
 
-   El script principal de scraping es `index.ts`. Puedes ejecutar el scraper con el siguiente comando:
+   El script principal del scraper se encuentra en crawler/src/index.ts. Antes de iniciar el backend, debes ejecutar este script para extraer los datos de la web de la Cámara de Comercio de Castellón, analizar sus URLs internas, procesar el contenido y guardar los resultados en archivos JSON en la subcarpeta output. 
+   Puedes ejecutar el scraper con el siguiente comando:
 
    ```bash
+   cd chatbotia/crawler
    ts-node src/index.ts
    ```
 
-   Este script extraerá los datos de la web de la Cámara de Comercio de Castellón, analizará sus URLs internas, procesará el contenido y guardará los resultados en un archivo JSON dentro de la subcarpeta `output`.
+   Este script extraerá los datos de la web de la Cámara de Comercio de Castellón, analizará sus URLs internas, procesará el contenido y guardará los resultados en archivos JSON dentro de una subcarpeta de `output`.
+
+4. **Ejecutar el backend**:
+
+Una vez que el scraper haya terminado de ejecutar y los datos hayan sido guardados en la subcarpeta de `output`, puedes iniciar el servidor backend. Esto permitirá procesar esos datos y almacenarlos en la base de datos MongoDB.
+
+Ejecutar el siguiente comando para iniciar el backend:
+
+   ```bash
+   cd chatbotia/backend
+   npm run dev
+   ```
+Esto iniciará el servidor Express en http://localhost:3001, y aquí se podrá interactuar con la API para manejar los datos que han sido cargados desde el scraper y los guardará en la base de datos.
 
 #### Frontend (React)
 
@@ -141,6 +156,10 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 #### Proyecto en Progreso
 
+* **Carga de datos a MongoDB**: Se implementó un servicio que carga los datos extraídos del crawler en una base de datos MongoDB.
+
+* **API Backend**: Se están implementado endpoints para interactuar con los datos almacenados en la base de datos.
+
 * **Gestión de URLs**: El scraper ahora guarda automáticamente las URLs descubiertas en el archivo urls.txt, que se actualiza y evita duplicados con cada ejecución.
 
 * **Soporte para variables de entorno**: Se añadió la capacidad de configurar la ubicación del archivo urls.txt mediante la variable de entorno URLS_FILE_PATH.
@@ -152,6 +171,18 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 ---
 
 ### Cambios recientes
+
+`Proyecto Backend`
+
+* Se ha creado un nuevo módulo para la conexión con MongoDB y la carga de datos desde los archivos JSON generados por el scraper.
+* Se implementó una nueva funcionalidad en el backend para cargar automáticamente los datos extraídos por el scraper a la base de datos MongoDB.
+* Se añadió la lógica para conectar a MongoDB, leer los archivos de datos generados por el scraper y almacenarlos en la base de datos.
+* El backend ahora incluye un script de carga de datos (`loadData.ts`), que lee los archivos JSON generados en la carpeta `crawler/output`, los procesa y los inserta en la colección de MongoDB.
+* Se ha mejorado la estructura del código, separando la lógica de conexión a la base de datos y la carga de los datos del scraper en módulos diferentes.
+* Se refactorizó la gestión de errores para proporcionar una mayor claridad en el manejo de fallos durante el proceso de conexión a la base de datos y carga de datos.
+* El backend está ahora preparado para recibir y servir los datos a través de una API RESTful, permitiendo a los usuarios acceder a la información cargada desde la base de datos.
+* Se ha actualizado el archivo `server.ts` y se ha creado una nueva estructura de carpetas para una mejor organización del proyecto.
+
 
 `Proyecto Crawler`
 
