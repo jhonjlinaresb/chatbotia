@@ -157,6 +157,7 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 #### Proyecto en Progreso
 
+* **Integración con ChatGPT**: Se implementó el servicio para generar respuestas por chatgpt.
 * **Carga de datos a MongoDB**: Se implementó un servicio que carga los datos extraídos del crawler en una base de datos MongoDB.
 
 * **API Backend**: Se están implementado endpoints para interactuar con los datos almacenados en la base de datos.
