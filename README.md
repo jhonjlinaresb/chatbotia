@@ -38,6 +38,7 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 * **TypeScript**: Lenguaje principal del proyecto.
 * **MongoDB**: Base de datos NoSQL para almacenar la información extraída.
 * **Express**: Framework para construir la API RESTful.
+* **OpenAI**: Framework para integración con API de openai.
 
 #### Frontend (React):
 
@@ -174,6 +175,7 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 `Proyecto Backend`
 
+* Se implementó la funcionalidad para la integración con la API de openai y recibir respuestas por ChatGPT.
 * Se ha creado un nuevo módulo para la conexión con MongoDB y la carga de datos desde los archivos JSON generados por el scraper.
 * Se implementó una nueva funcionalidad en el backend para cargar automáticamente los datos extraídos por el scraper a la base de datos MongoDB.
 * Se añadió la lógica para conectar a MongoDB, leer los archivos de datos generados por el scraper y almacenarlos en la base de datos.
