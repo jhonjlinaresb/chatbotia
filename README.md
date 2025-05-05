@@ -63,7 +63,7 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 3. **Ejecutar el scraper**:
 
-   El script principal del scraper se encuentra en crawler/src/index.ts. Antes de iniciar el backend, debes ejecutar este script para extraer los datos de la web de la Cámara de Comercio de Castellón, analizar sus URLs internas, procesar el contenido y guardar los resultados en archivos JSON en la subcarpeta output. 
+   El script principal del scraper se encuentra en crawler/src/index.ts. Antes de iniciar el backend, se debe ejecutar este script para extraer los datos de la web de la Cámara de Comercio de Castellón, analizar sus URLs internas, procesar el contenido y guardar los resultados en archivos JSON en la subcarpeta output. 
    Puedes ejecutar el scraper con el siguiente comando:
 
    ```bash
