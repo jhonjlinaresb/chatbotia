@@ -4,7 +4,13 @@ import puppeteer from 'puppeteer';
 import dotenv from 'dotenv';
 import { scrapeWithPuppeteer } from './scrapeWithPuppeteer';
 
-dotenv.config();
+const envPath = path.resolve(__dirname, '../../.env');
+dotenv.config({ path: envPath });
+console.log('🔍 Variables cargadas desde .env:');
+console.log('START_URL:', process.env.START_URL);
+console.log('URLS_FILE_PATH:', process.env.URLS_FILE_PATH);
+console.log('OUTPUT_DIR:', process.env.OUTPUT_DIR);
+console.log(`🧪 .env cargado desde: ${envPath}`);
 
 const START_URL = process.env.START_URL;
 const URLS_FILE_PATH = path.resolve(process.env.URLS_FILE_PATH || './urls.txt');
