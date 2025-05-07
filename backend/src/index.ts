@@ -9,7 +9,8 @@ import pagesRoutes from "./routes/pagesRoutes";
 import chatRoutes from "./routes/chatRoutes";
 import documentRoutes from "./routes/documentRoutes";
 import contextRoutes from "./routes/contextRoutes";
-import './scheduler';
+import whatsappRoutes from "./routes/whatsappRoutes";
+//import './scheduler';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ APP.use("/api/pages", pagesRoutes);
 APP.use("/api/chat", chatRoutes);
 APP.use("/api/document", documentRoutes); // Rutas para gestionar documentos
 APP.use("/api/context", contextRoutes);
+APP.use("/api/whatsapp", whatsappRoutes); // Rutas para gestionar WhatsApp
 // APP.post("/test", (req, res) => {
 //     res.json({ message: "Ruta de prueba funcionando" });
 // });
