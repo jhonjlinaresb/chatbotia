@@ -10,7 +10,7 @@ import path from "path";
 import { ConnectDB } from "../db";
 
 // Directorio donde se encuentran los archivos generados por el crawler
-const DATA_DIR = path.join(__dirname, "../../../crawler/output");
+const DATA_DIR = path.resolve(process.env.CRAWLER_DATA_PATH || "./crawler/output/pages");
 
 async function LoadData()
 {
