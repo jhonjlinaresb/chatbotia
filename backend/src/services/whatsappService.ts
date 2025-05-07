@@ -9,25 +9,26 @@ export async function enviarMensaje(numero: string, mensaje: string): Promise<vo
 {
   try
   {
-    await axios.post
-    (
-      `https://graph.facebook.com/v18.0/${process.env.WHATSAPP_PHONE_ID}/messages`,
-      {
-        messaging_product: "whatsapp",
-        to: numero,
-        type: "text",
-        text: { body: mensaje }
-      },
-      {
-        headers:
+    const res = await axios.post(
+        `https://graph.facebook.com/v18.0/${process.env.WHATSAPP_PHONE_ID}/messages`,
         {
-          Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
-          'Content-Type': 'application/json'
+          messaging_product: "whatsapp",
+          to: numero,
+          type: "text",
+          text: { body: mensaje }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
+            'Content-Type': 'application/json'
+          }
         }
-      }
-    );
-    console.log(`✅ Mensaje enviado a ${numero}`);
-  } catch (error: any) {
+      );
+      console.log(`✅ Mensaje enviado a ${numero}`);
+      console.log('📤 Respuesta completa de Meta:', res.data);      
+  }
+  catch (error: any)
+  {
     console.error('❌ Error al enviar mensaje:', error?.response?.data || error.message);
   }
 }
