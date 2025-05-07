@@ -5,8 +5,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import pagesRoutes from "./routes/pages";
-import chatRoutes from "./routes/chat";
+import pagesRoutes from "./routes/pagesRoutes";
+import chatRoutes from "./routes/chatRoutes";
+import documentRoutes from "./routes/documentRoutes";
+import contextRoutes from "./routes/contextRoutes";
 
 dotenv.config();
 
@@ -22,6 +24,8 @@ APP.use(cors());
 APP.use(express.json());
 APP.use("/api/pages", pagesRoutes);
 APP.use("/api/chat", chatRoutes);
+APP.use("/api/document", documentRoutes); // Rutas para gestionar documentos
+APP.use("/api/context", contextRoutes);
 // APP.post("/test", (req, res) => {
 //     res.json({ message: "Ruta de prueba funcionando" });
 // });

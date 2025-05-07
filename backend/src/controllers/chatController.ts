@@ -5,7 +5,7 @@
 
 import { Request, Response } from "express";
 import { OpenAI } from "openai";
-import { obtenerContexto } from "../services/contextService"; 
+import { getContextFromFiles } from "../services/contextService"; 
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -21,11 +21,12 @@ export async function preguntar(req: Request, res: Response): Promise<Response>
         /// <summary>
         /// Obtiene el contexto de la base de datos.
         /// </summary>
-        const contexto = await obtenerContexto();
+        const contexto = await getContextFromFiles();
 
         const prompt = `Responde a la siguiente pregunta utilizando esta información como contexto:\n\n${contexto}\n\nPregunta: ${pregunta}`;
 
-        const response = await openai.chat.completions.create({
+        const response = await openai.chat.completions.create
+        ({
             model: "gpt-4",
             messages: [
                 { role: "system", content: "Eres un asistente útil y experto en información institucional." },
@@ -39,7 +40,7 @@ export async function preguntar(req: Request, res: Response): Promise<Response>
     }
     catch (error)
     {
-        console.error("Error al procesar la pregunta:", error);
+        console.error("❌ Error al procesar la pregunta:", error);
         return res.status(500).json({ error: "Error al procesar la pregunta." });
     }
 }
