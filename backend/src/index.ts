@@ -9,6 +9,7 @@ import pagesRoutes from "./routes/pagesRoutes";
 import chatRoutes from "./routes/chatRoutes";
 import documentRoutes from "./routes/documentRoutes";
 import contextRoutes from "./routes/contextRoutes";
+import './scheduler';
 
 dotenv.config();
 
