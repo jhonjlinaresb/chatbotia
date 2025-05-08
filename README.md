@@ -33,12 +33,6 @@ Desarrollar un chatbot para WhatsApp que responda dudas frecuentes sobre los ser
 
 ---
 
-## ⚙️ Instalación y ejecución
-
-Sigue los pasos detallados para clonar, configurar y ejecutar tanto el scraper como el backend. Ver la documentación completa incluida en este repositorio.
-
----
-
 ## ⚙️ Instalación paso a paso
 
 ### 1. Clonar el repositorio
@@ -74,7 +68,25 @@ LOAD_SCRIPT=ts-node src/services/loadData.ts
 
 ---
 
-### 4. Ejecutar el servidor
+### 4. Ejecutar el scraper
+
+```bash
+cd chatbotia/crawler
+ts-node src/index.ts
+```
+
+---
+
+### 5. Cargar datos a la base de datos
+
+```bash
+cd chatbotia/backend
+npm run load:data
+```
+
+---
+
+### 6. Ejecutar el servidor
 
 ```bash
 npm run dev
@@ -82,7 +94,7 @@ npm run dev
 
 ---
 
-### 5. Exponer el webhook (usando ngrok)
+### 7. Exponer el webhook (usando ngrok)
 
 ```bash
 ngrok http 3001
@@ -150,15 +162,6 @@ ngrok http 3001
 
 ---
 
-## 🧪 Proyecto en desarrollo
-
-* Integración completa con ChatGPT y WhatsApp
-* Scraping automático y carga en MongoDB
-* API RESTful en construcción
-* Frontend React (opcional en siguientes fases)
-
----
-
 ## 🧩 Estructura del Proyecto
 
 ```
@@ -188,13 +191,14 @@ Esta cesión incluye:
 - Uso institucional y comercial por parte de los organizadores, patrocinadores y socios del Hackathon
 - Uso en productos, servicios o iniciativas derivadas del proyecto
 
+---
 
 ## 👨‍💻 Autor y contacto
 
-* Desarrollado por:
+* Desarrollado por:  
 👨‍💻 **Jhon Linares** – Ingeniero de Software Jr.  
-* 🔗 [LinkedIn: linkedin.com/in/jhonlinares](https://www.linkedin.com/in/jhonlinares/)
-* 📧 Correo: jhonjlinaresb@gmail.com
-* 🧠 Trabajo individual con investigación y soporte comunitario
-* 🌐 GitHub: [jhonjlinaresb](https://github.com/jhonjlinaresb)
-* 📱 WhatsApp: [https://wa.me/34641207192](https://wa.me/34641207192)
+🔗 [LinkedIn: linkedin.com/in/jhonlinares](https://www.linkedin.com/in/jhonlinares/)  
+📧 Correo: jhonjlinaresb@gmail.com 
+🌐 GitHub: [jhonjlinaresb](https://github.com/jhonjlinaresb)  
+📱 WhatsApp: [https://wa.me/34641207192](https://wa.me/34641207192)
+🧠 Trabajo individual con investigación y soporte comunitario  
