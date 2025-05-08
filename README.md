@@ -1,22 +1,18 @@
-# ChatbotIA
+# 🤖 ChatBotIA – Cámara Comercio Castellón
 
-Chatbot con IA para WhatsApp que interactúa con los usuarios, proporcionando respuestas a preguntas frecuentes sobre los servicios, horarios y ubicaciones de la Cámara de Comercio de Castellón.
-
----
-
-### Descripción
+Un chatbot inteligente basado en WhatsApp Cloud API + OpenAI, desarrollado para mejorar la atención ciudadana y difundir cursos, ayudas y servicios ofrecidos por la Cámara de Comercio de Castellón.
 
 Este proyecto tiene como objetivo crear un chatbot con inteligencia artificial para WhatsApp, capaz de analizar el contenido de la web de la Cámara de Comercio de Castellón y utilizar esa información para responder de forma eficiente a las consultas de los usuarios. El chatbot está diseñado para brindar asistencia 24/7, mantener la información actualizada y escalar las conversaciones a un asesor humano cuando sea necesario.
 
 ---
 
-### Objetivo
+## 🧠 Objetivo
 
-Desarrollar un chatbot para WhatsApp que responda dudas frecuentes sobre los servicios de la Cámara de Comercio de Castellón, con un enfoque en formación, servicios y trámites administrativos. El chatbot debe ser capaz de proporcionar información actualizada, enviar notificaciones de eventos importantes (como fechas de cursos) y derivar a los usuarios a un asistente humano en caso de ser necesario.
+Desarrollar un chatbot para WhatsApp que responda dudas frecuentes sobre los servicios de la Cámara de Comercio de Castellón, con un enfoque en formación, servicios y trámites administrativos. El chatbot debe ser capaz de proporcionar información actualizada, enviar notificaciones de eventos importantes y derivar a los usuarios a un asistente humano en caso de ser necesario.
 
 ---
 
-### Características
+## ✨ Características
 
 * **Consultas generales**: Responde preguntas sobre horarios, ubicaciones y servicios de la Cámara.
 * **Notificaciones**: Envía recordatorios y actualizaciones (como fechas de cursos y plazos).
@@ -26,91 +22,92 @@ Desarrollar un chatbot para WhatsApp que responda dudas frecuentes sobre los ser
 
 ---
 
-### Tecnologías utilizadas
+## 🛠️ Tecnologías utilizadas
 
-Este proyecto utiliza una combinación de tecnologías para el backend y el frontend:
-
-#### Backend (Node.js):
-
-* **Puppeteer**: Para scraping de contenido dinámico y generación automática de `urls.txt`.
-* **dotenv**: Para gestionar configuraciones mediante variables de entorno.
-* **fs y path**: Para manipulación de archivos y rutas locales.
-* **TypeScript**: Lenguaje principal del proyecto.
-* **MongoDB**: Base de datos NoSQL para almacenar la información extraída.
-* **Express**: Framework para construir la API RESTful.
-* **OpenAI**: Framework para integración con API de openai.
-
-#### Frontend (React):
-
-* **React.js**: Para crear una interfaz de usuario interactiva (en desarrollo).
+* Node.js, TypeScript, Express, MongoDB
+* Puppeteer (scraper)
+* dotenv, fs, path
+* OpenAI API (GPT)
+* WhatsApp Cloud API (Meta)
+* React.js (Frontend, en desarrollo)
 
 ---
 
-### Cómo ejecutar los proyectos
+## ⚙️ Instalación y ejecución
 
-#### Backend (Node.js)
-
-1. **Clonar el repositorio**:
-
-   ```bash
-   git clone https://github.com/jhonjlinaresb/chatbotia.git
-   ```
-
-2. **Instalar dependencias**:
-
-   ```bash
-   npm install
-   ```
-
-3. **Ejecutar el scraper**:
-
-   El script principal del scraper se encuentra en crawler/src/index.ts. Antes de iniciar el backend, se debe ejecutar este script para extraer los datos de la web de la Cámara de Comercio de Castellón, analizar sus URLs internas, procesar el contenido y guardar los resultados en archivos JSON en la subcarpeta output. 
-   Puedes ejecutar el scraper con el siguiente comando:
-
-   ```bash
-   cd chatbotia/crawler
-   ts-node src/index.ts
-   ```
-
-   Este script extraerá los datos de la web de la Cámara de Comercio de Castellón, analizará sus URLs internas, procesará el contenido y guardará los resultados en archivos JSON dentro de una subcarpeta de `output`.
-
-4. **Ejecutar el backend**:
-
-   Una vez que el scraper haya terminado de ejecutar y los datos hayan sido guardados en la subcarpeta de `output`, puedes iniciar el servidor backend. Esto permitirá procesar esos datos y almacenarlos en la base de datos MongoDB.
-
-   Ejecutar el siguiente comando para iniciar el backend:
-
-   ```bash
-   cd chatbotia/backend
-   npm run dev
-   ```
-   Esto iniciará el servidor Express en http://localhost:3001, y aquí se podrá interactuar con la API para manejar los datos que han sido cargados desde el scraper y los guardará en la base de datos.
-
-#### Frontend (React)
-
-1. **Ir al directorio del frontend**:
-
-   ```bash
-   cd chatbotia/frontend
-   ```
-
-2. **Instalar dependencias**:
-
-   ```bash
-   npm install
-   ```
-
-3. **Ejecutar la aplicación**:
-
-   ```bash
-   npm start
-   ```
-
-   Esto iniciará el servidor de desarrollo de React en `http://localhost:3000`.
+Sigue los pasos detallados para clonar, configurar y ejecutar tanto el scraper como el backend. Ver la documentación completa incluida en este repositorio.
 
 ---
 
-### => Flujo del Scraper
+## ⚙️ Instalación paso a paso
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/jhonjlinaresb/chatbotia.git
+cd chatbotia/backend
+```
+
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3. Configurar el archivo `.env`
+
+Crea un archivo `.env` con este contenido:
+
+```env
+MONGODB_URI=mongodb://localhost:27017
+PORT=3001
+OPENAI_API_KEY=tu_clave_de_openai
+WHATSAPP_PHONE_ID=tu_id_phone_de_meta
+WHATSAPP_TOKEN=tu_token_de_meta
+WHATSAPP_SUPPORT_NUMBER=+346XXXXXXXX
+CRAWLER_DATA_PATH=./crawler/output/pages
+CRAWLER_SCRIPT=ts-node ../crawler/src/index.ts
+LOAD_SCRIPT=ts-node src/services/loadData.ts
+```
+
+⚠️ Requiere un token válido de Meta con permisos `whatsapp_business_messaging` y `whatsapp_business_management`.
+
+---
+
+### 4. Ejecutar el servidor
+
+```bash
+npm run dev
+```
+
+---
+
+### 5. Exponer el webhook (usando ngrok)
+
+```bash
+ngrok http 3001
+```
+
+- Copia la URL que te da ngrok (ej: `https://xxxx.ngrok-free.app`)
+- Regístrala en el [panel de desarrolladores de Meta](https://developers.facebook.com/apps/) > Webhooks
+
+> Ruta del webhook: `/api/whatsapp/webhook`  
+> Token de verificación: `my_verify_token`
+
+---
+
+## 🧪 ¿Cómo probar el bot?
+
+1. Asegúrate de tener el servidor encendido
+2. Inicia conversación desde WhatsApp con este enlace:
+
+👉 [https://wa.me/34641207192](https://wa.me/34641207192)
+
+⚠️ El bot no está en producción permanente. Solicita acceso contactando con el desarrollador.
+
+---
+
+## 🔄 Flujo del Scraper
 
 ```text
            +---------------------------+
@@ -135,7 +132,7 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
          +--------------+--------------+
          | Recorre cada URL de `urls.txt` |
          |  y extrae contenido relevante  |
-         | (títulos, párrafos, listas, etc.) |
+         | (títulos, párrafos, listas)    |
          +--------------+--------------+
                         |
                         v
@@ -153,76 +150,51 @@ Este proyecto utiliza una combinación de tecnologías para el backend y el fron
 
 ---
 
-### Lo que estoy trabajando y lo que voy añadiendo
+## 🧪 Proyecto en desarrollo
 
-#### Proyecto en Progreso
-
-* **Integración con ChatGPT**: Se implementó el servicio para generar respuestas por chatgpt.
-* **Carga de datos a MongoDB**: Se implementó un servicio que carga los datos extraídos del crawler en una base de datos MongoDB.
-
-* **API Backend**: Se están implementado endpoints para interactuar con los datos almacenados en la base de datos.
-
-* **Gestión de URLs**: El scraper ahora guarda automáticamente las URLs descubiertas en el archivo urls.txt, que se actualiza y evita duplicados con cada ejecución.
-
-* **Soporte para variables de entorno**: Se añadió la capacidad de configurar la ubicación del archivo urls.txt mediante la variable de entorno URLS_FILE_PATH.
-* **Refactorización del manejo de errores en el scraper**: Se ha mejorado la estructura del código para manejar errores en las solicitudes HTTP de manera más clara y eficiente. Ahora se utiliza un método auxiliar ConsoleError que facilita la gestión de errores de manera centralizada.
-* **Scraping optimizado**: El scraper se ha refactorizado utilizando Puppeteer para una mayor flexibilidad al manejar contenido dinámico, mejorando la precisión y la eficiencia del scraping.
-* Se han mejorado los scripts para extraer información relevante como títulos, enlaces y descripciones.
-* Se está desarrollando la integración con la API de WhatsApp para permitir que el chatbot interactúe con los usuarios.
+* Integración completa con ChatGPT y WhatsApp
+* Scraping automático y carga en MongoDB
+* API RESTful en construcción
+* Frontend React (opcional en siguientes fases)
 
 ---
 
-### Cambios recientes
+## 🧩 Estructura del Proyecto
 
-`Proyecto Backend`
-
-* Se implementó la funcionalidad para la integración con la API de openai y recibir respuestas por ChatGPT.
-* Se ha creado un nuevo módulo para la conexión con MongoDB y la carga de datos desde los archivos JSON generados por el scraper.
-* Se implementó una nueva funcionalidad en el backend para cargar automáticamente los datos extraídos por el scraper a la base de datos MongoDB.
-* Se añadió la lógica para conectar a MongoDB, leer los archivos de datos generados por el scraper y almacenarlos en la base de datos.
-* El backend ahora incluye un script de carga de datos (`loadData.ts`), que lee los archivos JSON generados en la carpeta `crawler/output/pages`, los procesa y los inserta en la colección de MongoDB.
-* Se ha mejorado la estructura del código, separando la lógica de conexión a la base de datos y la carga de los datos del scraper en módulos diferentes.
-* Se refactorizó la gestión de errores para proporcionar una mayor claridad en el manejo de fallos durante el proceso de conexión a la base de datos y carga de datos.
-* El backend está ahora preparado para recibir y servir los datos a través de una API RESTful, permitiendo a los usuarios acceder a la información cargada desde la base de datos.
-* Se ha actualizado el archivo `server.ts` y se ha creado una nueva estructura de carpetas para una mejor organización del proyecto.
-
-
-`Proyecto Crawler`
-
-* Se refactorizó el scraper y se eliminó el código redundante en `scraper.ts` y `parser.ts`.
-* Se optimizó el manejo de errores global y se mejoró la estructura del código.
-* Se añadió la funcionalidad para guardar la información extraída en archivos JSON en una subcarpeta `/pages`.
-* Se mejoró la extracción de datos dinámicos utilizando Puppeteer para manejar mejor los contenidos cargados por JavaScript.
-* Se implementó un sistema de análisis y actualización automática del archivo `urls.txt` a partir del rastreo interno del sitio web objetivo.
+```
+chatbotia/
+├── backend/
+│   ├── src/
+│   ├── services/
+│   ├── routes/
+│   └── index.ts
+├── crawler/
+│   └── src/index.ts
+├── frontend/ (en progreso)
+└── .env
+```
 
 ---
 
-### Próximos pasos
+## 🪪 Licencia
 
-#### Backend
+Este proyecto ha sido desarrollado por **Jhon Linares** en el marco del Hackathon Cámara Castellón 2025.
 
-* **Automatización del scraper**: Automatizar el scraper para que se ejecute antes de levantar el backend y mantenga los datos actualizados en MongoDB.
-* **API RESTful**: Desarrollar endpoints para acceder a los datos extraídos y almacenados desde el scraper.
-* **IGenerar respuestas por ChatGPT**: Utilizar el api de OpenAI para generar respuestas inteligentes basadas en el contenido almacenado en la base de datos.
-* **Integración con la API de WhatsApp**: Conectar el backend con WhatsApp para responder automáticamente a los usuarios usando la base de datos y OpenAI.
-* **Pruebas unitarias**: Implementar pruebas para garantizar la estabilidad del flujo de carga de datos y acceso.
-* **Optimización de datos**: Mejorar el rendimiento al cargar grandes volúmenes de datos desde los archivos JSON generados.
-* **Seguridad y autenticación**: (Opcional) Agregar autenticación y protección de rutas en la API cuando sea necesario.
-* **Documentación técnica**: Documentar la API y los flujos de datos del backend.
+Se cede el derecho de uso, modificación y explotación del mismo a los organizadores del Hackathon, a la Cámara de Comercio de Castellón y a sus socios, incluyendo fines comerciales, siempre que se reconozca la autoría original.
 
-#### Frontend
+El autor mantiene sus derechos morales sobre la obra, y cualquier uso externo fuera del ecosistema del Hackathon y sus entidades vinculadas requerirá autorización previa por escrito.
 
-* **Interfaz de chat en vivo**: Crear una UI simple donde el usuario pueda interactuar directamente con el chatbot.
-* **Integración con backend y OpenAI**: Conectar el chat en tiempo real al backend para obtener respuestas basadas en la información extraída.
-* **Diseño responsivo**: Asegurar que el frontend sea usable en móviles y escritorio.
-* **Historial y recomendaciones (futuro)**: (Futuro) Permitir registro para guardar historial de conversación, recomendaciones o recibir alertas.
+Esta cesión incluye:
+- Uso institucional y comercial por parte de los organizadores, patrocinadores y socios del Hackathon
+- Uso en productos, servicios o iniciativas derivadas del proyecto
 
----
 
-### Equipo
+## 👨‍💻 Autor y contacto
 
-* **Sonia Cervera** y **Javier Amad** están disponibles para brindar soporte durante el proceso de desarrollo a través de Telegram.
-
----
-
-Este es un trabajo en progreso, por lo que continuamente se agregarán nuevas características y mejoras. ¡Gracias por tu interés!
+* Desarrollado por:
+👨‍💻 **Jhon Linares** – Ingeniero de Software Jr.  
+* 🔗 [LinkedIn: linkedin.com/in/jhonlinares](https://www.linkedin.com/in/jhonlinares/)
+* 📧 Correo: jhonjlinaresb@gmail.com
+* 🧠 Trabajo individual con investigación y soporte comunitario
+* 🌐 GitHub: [jhonjlinaresb](https://github.com/jhonjlinaresb)
+* 📱 WhatsApp: [https://wa.me/34641207192](https://wa.me/34641207192)
