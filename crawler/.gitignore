@@ -8,3 +8,5 @@ output/
 # Se recomienda no incluir este fichero en el repositorio, ya que el programa lo generará automáticamente
 # y contendrá las urls de lla url principal scrapeada.
 urls.txt
+
+dist/

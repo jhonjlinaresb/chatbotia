@@ -10,7 +10,7 @@ import chatRoutes from "./routes/chatRoutes";
 import documentRoutes from "./routes/documentRoutes";
 import contextRoutes from "./routes/contextRoutes";
 import whatsappRoutes from "./routes/whatsappRoutes";
-//import './scheduler';
+import './scheduler';
 
 dotenv.config();
 

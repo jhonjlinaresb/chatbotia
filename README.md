@@ -181,7 +181,7 @@ chatbotia/
 
 ## 🪪 Licencia
 
-Este proyecto ha sido desarrollado por **Jhon Linares** en el marco del Hackathon Cámara Castellón 2025.
+Este proyecto ha sido desarrollado por **Jhon Jairo Linares** en el marco del Hackathon Cámara Castellón 2025.
 
 Se cede el derecho de uso, modificación y explotación del mismo a los organizadores del Hackathon, a la Cámara de Comercio de Castellón y a sus socios, incluyendo fines comerciales, siempre que se reconozca la autoría original.
 
@@ -201,4 +201,3 @@ Esta cesión incluye:
 📧 Correo: jhonjlinaresb@gmail.com 
 🌐 GitHub: [jhonjlinaresb](https://github.com/jhonjlinaresb)  
 📱 WhatsApp: [https://wa.me/34641207192](https://wa.me/34641207192)
-🧠 Trabajo individual con investigación y soporte comunitario  

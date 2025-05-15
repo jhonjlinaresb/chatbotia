@@ -12,8 +12,21 @@ const discovered: string[] = [];
  * @param maxDepth - Máxima profundidad de rastreo (niveles de enlaces).
  * @returns Lista de URLs descubiertas dentro del dominio.
  */
-export async function crawlSite(startUrl: string, maxDepth = 3) {
-  const browser = await puppeteer.launch({ headless: true });
+export async function crawlSite(startUrl: string, maxDepth = 3)
+{
+  const browser = await puppeteer.launch
+  ({
+    headless: true,
+    args:
+    [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-gpu",
+        "--window-size=1920,1080",
+        "--disable-dev-shm-usage"
+    ]
+});
+
   const page = await browser.newPage();
 
   const baseDomain = new URL(startUrl).hostname;

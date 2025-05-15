@@ -12,7 +12,7 @@ console.log('URLS_FILE_PATH:', process.env.URLS_FILE_PATH);
 console.log('OUTPUT_DIR:', process.env.OUTPUT_DIR);
 console.log(`🧪 .env cargado desde: ${envPath}`);
 
-const START_URL = process.env.START_URL;
+const START_URL = process.env.START_URL || 'https://www.camaracastellon.com/es/';
 const URLS_FILE_PATH = path.resolve(process.env.URLS_FILE_PATH || './urls.txt');
 const OUTPUT_DIR = path.resolve(process.env.OUTPUT_DIR || './output');
 
@@ -37,7 +37,17 @@ if (!fs.existsSync(OUTPUT_DIR))
  */
 async function discoverUrls(baseUrl: string): Promise<string[]>
 {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-gpu",
+        "--window-size=1920,1080",
+        "--disable-dev-shm-usage"
+    ]
+});
+
   const page = await browser.newPage();
 
   await page.goto(baseUrl, { waitUntil: 'networkidle2', timeout: 60000 });
